@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opulent Decor & Events | Luxury Event Decoration</title>
+    <title>Opulent Decor & Events & Events Management | Luxury Event Decoration</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -935,87 +935,153 @@
         /* Color Palette Grid */
         .palette-section {
             grid-column: 1 / -1;
-            background: rgba(0,0,0,0.2);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 1rem 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(212,175,55,0.05));
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 1.5rem 0;
+            border: 2px solid rgba(212,175,55,0.3);
         }
 
         .palette-header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .palette-header h3 {
             font-family: 'Playfair Display', serif;
             color: var(--gold);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
         }
 
-        .palette-categories {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .palette-cat-btn {
-            padding: 0.5rem 1rem;
-            background: transparent;
-            border: 1px solid rgba(212,175,55,0.3);
-            color: var(--white);
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-        }
-
-        .palette-cat-btn:hover,
-        .palette-cat-btn.active {
-            background: var(--gold);
-            color: var(--dark);
-            border-color: var(--gold);
-        }
-
-        .palette-grid {
+        /* Mega Palette Grid - All 64 Colors Flat Display */
+        .mega-palette-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+        }
+
+        @media (min-width: 500px) {
+            .mega-palette-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mega-palette-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .mega-palette-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .mega-palette-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
         }
 
         .palette-option {
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            border: 2px solid transparent;
-            transition: all 0.3s;
+            border: 3px solid rgba(255,255,255,0.2);
+            transition: all 0.4s;
+            background: rgba(0,0,0,0.4);
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .palette-option:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.4);
+            z-index: 10;
         }
 
         .palette-option.selected {
             border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(212,175,55,0.3);
+            border-width: 4px;
+            box-shadow: 0 0 40px rgba(212,175,55,0.6), 0 10px 30px rgba(0,0,0,0.4);
+            transform: translateY(-8px) scale(1.03);
+            z-index: 20;
+        }
+
+        .palette-option.selected::before {
+            content: '✓ SELECTED';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0.3rem 0.8rem;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            z-index: 10;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         .palette-colors {
             display: flex;
-            height: 60px;
+            height: 90px;
+            position: relative;
         }
 
         .palette-color-block {
             flex: 1;
+            transition: flex 0.3s;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .palette-color-block:last-child {
+            border-right: none;
+        }
+
+        .palette-option:hover .palette-color-block {
+            flex: 1.3;
         }
 
         .palette-name {
-            padding: 0.5rem;
+            padding: 1.2rem;
             text-align: center;
-            font-size: 0.8rem;
-            background: rgba(0,0,0,0.5);
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
             color: var(--white);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .palette-option.selected .palette-name {
+            background: linear-gradient(180deg, var(--gold), var(--rose-gold));
+            color: var(--dark);
+            font-weight: 800;
+        }
+
+        /* Scrollbar styling for the color grid */
+        .mega-palette-grid::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .mega-palette-grid::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .mega-palette-grid::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--gold), var(--rose-gold));
+            border-radius: 10px;
+            border: 2px solid rgba(0,0,0,0.3);
+        }
+
+        .mega-palette-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
         }
 
         /* Package Selection */
@@ -1321,7 +1387,18 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+            @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -1331,8 +1408,7 @@
     <!-- Navigation -->
     <nav>
         <div class="logo-container">
-            <img src="/mnt/kimi/upload/opulent.png" alt="Opulent Decor" class="logo-img">
-            <span class="logo-text">OPULENT DECOR</span>
+            <span class="logo-text">OPULENT DECOR & EVENTS & EVENTS MANAGEMENT</span>
         </div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#" class="active" onclick="showPage('home')">Home</a></li>
@@ -1351,8 +1427,8 @@
     <div class="page home-page active" id="home">
         <section class="hero-cinematic">
             <div class="hero-content">
-                <img src="/mnt/kimi/upload/opulent.png" alt="Opulent Decor & Events" class="hero-logo-large">
-                <h1 class="hero-title">OPULENT DECOR</h1>
+                
+                <h1 class="hero-title">OPULENT DECOR & EVENTS</h1>
                 <p class="hero-slogan">Luxury . style . perfection</p>
                 <p class="hero-tagline">Transforming your special moments into extraordinary memories with bespoke event decoration and styling</p>
                 <a href="#" class="hero-cta" onclick="showPage('book')">Book Your Event →</a>
@@ -1411,11 +1487,11 @@
 
         <div class="about-content-split">
             <div class="about-image-side">
-                <img src="/mnt/kimi/upload/opulent.png" alt="Opulent Decor" class="about-logo-large">
+                
             </div>
             <div class="about-text-side">
                 <h2>Elegance Redefined</h2>
-                <p>At Opulent Decor & Events, we believe every celebration deserves to be nothing short of spectacular. With an eye for detail and a passion for luxury, we specialize in creating breathtaking environments that reflect your unique style and vision.</p>
+                <p>At Opulent Decor & Events & Events Management, we believe every celebration deserves to be nothing short of spectacular. With an eye for detail and a passion for luxury, we specialize in creating breathtaking environments that reflect your unique style and vision.</p>
                 <p>From intimate gatherings to grand celebrations, our team of dedicated designers works tirelessly to ensure every element — from color palettes to floral arrangements — harmonizes perfectly to create an atmosphere of pure elegance.</p>
                 <p>We don't just decorate venues; we craft experiences that linger in memories long after the last guest has departed. Your dream event is our masterpiece.</p>
                 
@@ -2226,23 +2302,32 @@
                         </select>
                     </div>
 
-                    <!-- Color Palette Section -->
-                    <div class="palette-section">
-                        <div class="palette-header">
-                            <h3>Choose Your Color Theme</h3>
+                    <!-- ============================================ -->
+                    <!-- COLOR PALETTE SELECTION - ALL 64 COLORS -->
+                    <!-- ============================================ -->
+                    <div class="palette-section" style="background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(183,110,121,0.1), rgba(0,0,0,0.5)); border: 3px solid var(--gold); box-shadow: 0 0 40px rgba(212,175,55,0.3);">
+                        <div class="palette-header" style="margin-bottom: 2.5rem;">
+                            <h3 style="font-size: 2.2rem; color: var(--gold); text-shadow: 0 0 20px rgba(212,175,55,0.5);">🎨 Choose Your Color Theme</h3>
+                            <p style="color: rgba(255,255,255,0.9); margin-top: 1rem; font-size: 1.1rem; font-weight: 500;">👆 Click on ONE color palette below that matches your event vision</p>
+                            <p style="color: var(--gold); margin-top: 0.5rem; font-size: 0.95rem;">✨ 64 stunning color combinations available ✨</p>
                         </div>
-                        <div class="palette-categories">
-                            <button type="button" class="palette-cat-btn active" onclick="showPaletteCat('classic')">Classic</button>
-                            <button type="button" class="palette-cat-btn" onclick="showPaletteCat('romantic')">Romantic</button>
-                            <button type="button" class="palette-cat-btn" onclick="showPaletteCat('modern')">Modern</button>
-                            <button type="button" class="palette-cat-btn" onclick="showPaletteCat('earthy')">Earthy</button>
+
+                        <!-- SELECTED THEME DISPLAY - Shows client choice prominently -->
+                        <div id="selectedThemeDisplay" style="background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(183,110,121,0.2)); border: 4px solid var(--gold); border-radius: 20px; padding: 2.5rem; margin-bottom: 3rem; text-align: center; display: none; box-shadow: 0 10px 40px rgba(212,175,55,0.4);">
+                            <p style="color: var(--gold); font-weight: 700; margin-bottom: 1rem; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 10px rgba(212,175,55,0.5);">✓ Your Selected Theme:</p>
+                            <div id="selectedThemeName" style="font-size: 1.8rem; color: var(--white); font-weight: 700; margin-bottom: 1.5rem; text-shadow: 0 0 15px rgba(255,255,255,0.3);"></div>
+                            <div id="selectedColorsPreview" style="display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;"></div>
                         </div>
-                        <div class="palette-grid" id="paletteGrid">
-                            <!-- Populated by JS -->
+
+                        <!-- ALL 64 COLOR PALETTES - VISIBLE GRID -->
+                        <div class="mega-palette-grid" id="megaPaletteGrid" style="max-height: 800px; overflow-y: auto; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 15px; border: 1px solid rgba(212,175,55,0.2);">
+                            <!-- All 64 color palettes displayed here -->
                         </div>
+
                         <input type="hidden" name="selectedTheme" id="selectedTheme">
                         <input type="hidden" name="themeColors" id="themeColors">
                     </div>
+                    <!-- ============================================ -->
 
                     <!-- Package Selection with Visible Prices -->
                     <div class="package-section" id="packageSection" style="display: none;">
@@ -2282,9 +2367,48 @@
                         <label>Number of Guests *</label>
                         <input type="number" name="guestCount" min="1" required placeholder="Estimated guests">
                     </div>
-                    <div class="form-group full-width">
-                        <label>Venue Name & Address *</label>
-                        <input type="text" name="venueAddress" required placeholder="Venue name, district, full address with landmarks...">
+                    <!-- VENUE DETAILS SECTION -->
+                    <div class="form-group full-width" style="grid-column: 1 / -1; margin-top: 1rem;">
+                        <div style="background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(183,110,121,0.05)); border: 2px solid rgba(212,175,55,0.3); border-radius: 15px; padding: 2rem; margin-bottom: 1rem;">
+                            <h4 style="color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">🏛️ Venue Details</h4>
+
+                            <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                                <div class="form-group" style="grid-column: 1 / -1;">
+                                    <label>Venue Name *</label>
+                                    <input type="text" name="venueName" required placeholder="Enter venue name (e.g., Serena Hotel, Kampala)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>District *</label>
+                                    <input type="text" name="district" required placeholder="Enter district (e.g., Kampala, Wakiso, Mukono)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>City/Area *</label>
+                                    <input type="text" name="cityArea" required placeholder="Enter city or area">
+                                </div>
+
+                                <div class="form-group" style="grid-column: 1 / -1;">
+                                    <label>Full Address with Landmarks *</label>
+                                    <textarea name="fullAddress" rows="3" required placeholder="Enter complete address with nearby landmarks, directions, or notable buildings for easy location..."></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Contact Person at Venue *</label>
+                                    <input type="text" name="venueContactPerson" required placeholder="Name of person managing the venue">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Venue Contact Number *</label>
+                                    <input type="tel" name="venueContactPhone" required placeholder="Phone number of venue contact">
+                                </div>
+
+                                <div class="form-group" style="grid-column: 1 / -1;">
+                                    <label>Venue Alternative Contact (Optional)</label>
+                                    <input type="text" name="venueAltContact" placeholder="Alternative phone or email for venue">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group full-width">
                         <label>Additional Details</label>
@@ -2302,14 +2426,14 @@
 
     <!-- Footer -->
     <footer>
-        <img src="/mnt/kimi/upload/opulent.png" alt="Opulent Decor" class="footer-logo">
-        <p class="footer-slogan">Luxury . style . perfection</p>
+        
+        <p class="footer-slogan">Luxury . Style . Perfection</p>
         <div class="footer-contact">
             <span>📞 0747378298</span>
             <span>📱 0751215607</span>
             <span>✉️ opulentdecor@gmail.com</span>
         </div>
-        <p style="color: rgba(255,255,255,0.4); font-size: 0.9rem;">&copy; 2026 Opulent Decor & Events. All rights reserved.</p>
+        <p style="color: rgba(255,255,255,0.4); font-size: 0.9rem;">&copy; 2026 Opulent Decor & Events & Events Management. All rights reserved.</p>
     </footer>
 
     <!-- WhatsApp Float -->
@@ -2536,10 +2660,35 @@
         }
 
         function selectPalette(name, colors, element) {
-            document.querySelectorAll('.palette-option').forEach(el => el.classList.remove('selected'));
+            // Remove selected class from all options
+            document.querySelectorAll('.palette-option').forEach(el => {
+                el.classList.remove('selected');
+                el.style.position = 'relative';
+            });
+
+            // Add selected class to clicked element
             element.classList.add('selected');
+            element.style.position = 'relative';
+
+            // Update hidden inputs
             document.getElementById('selectedTheme').value = name;
             document.getElementById('themeColors').value = colors.join(', ');
+
+            // Update the selected theme display
+            const display = document.getElementById('selectedThemeDisplay');
+            const nameDiv = document.getElementById('selectedThemeName');
+            const colorsDiv = document.getElementById('selectedColorsPreview');
+
+            display.style.display = 'block';
+            nameDiv.textContent = name;
+
+            // Show color circles
+            colorsDiv.innerHTML = colors.map(color => 
+                `<div style="width: 30px; height: 30px; border-radius: 50%; background: ${color}; border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"></div>`
+            ).join('');
+
+            // Smooth scroll to show selection
+            display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         showPaletteCat('classic');
@@ -2676,7 +2825,7 @@
             message += `👥 Guests: ${formData.get('guestCount')}\n`;
             message += `📍 Location: ${formData.get('venueAddress')}\n\n`;
             message += `📝 Details: ${formData.get('details') || 'None'}\n\n`;
-            message += "Sent from Opulent Decor Website";
+            message += "Sent from Opulent Decor & Events Website";
             
             window.open(`https://wa.me/256751215607?text=${encodeURIComponent(message)}`, '_blank');
         }
